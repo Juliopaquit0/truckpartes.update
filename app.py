@@ -163,22 +163,24 @@ def normalizar_imagem_produto(valor):
 # =========================================================
 
 
-
 def conectar_banco():
+    
+    db_user = os.getenv('MYSQL_USER', 'avnadmin')
+    db_pass = os.getenv('MYSQL_PASSWORD', "AVNS_CMRydj8sXt2w6WHs1xZ")
+    db_host = os.getenv('MYSQL_HOST',"truck-parts-truck-parts.e.aivencloud.com" )
+    db_port = int(os.getenv('MYSQL_PORT', 23976))
+    db_name = os.getenv('MYSQL_DATABASE', 'defaultdb')
 
-
-
+    
     return mysql.connector.connect(
-
-        host=os.getenv("MYSQL_HOST", "127.0.0.1"),
-
-        user=os.getenv("MYSQL_USER", "root"),
-
-        password=os.getenv("MYSQL_PASSWORD", "senai105"),
-
-        database=os.getenv("MYSQL_DATABASE", "DB_truck_prts")
-
+        host=db_host,
+        user=db_user,
+        password=db_pass,
+        database=db_name,
+        port=db_port,
+        auth_plugin='mysql_native_password'
     )
+
 
 
 
