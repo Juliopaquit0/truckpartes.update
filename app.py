@@ -654,136 +654,89 @@ def fazer_cadastro():
         fechar_banco(conexao, cursor)
 
 
-@app.route("/login", methods=["GET"])
 
+# =========================================================
+# LOGIN
+# =========================================================
+
+@app.route("/login", methods=["GET"])
 def login():
 
-
-
     if "usuario_id" in session:
-
         return redirect(url_for("land"))
-
-
 
     return render_template("login.html")
 
 
-
-
-
 @app.route("/login", methods=["POST"])
-
 def fazer_login():
 
-
-
     email = request.form.get("email", "").strip().lower()
-
     senha = request.form.get("senha", "")
 
-
-
     conexao = None
-
     cursor = None
 
-
-
     try:
-
-
-
+        
         conexao = conectar_banco()
 
         cursor = conexao.cursor(dictionary=True)
 
-
-
+      
         cursor.execute(
-
             """
-
             SELECT id_usuario, nome, senha
-
             FROM USUARIO
-
             WHERE email = %s
-
             """,
-
             (email,)
-
         )
-
-
 
         usuario = cursor.fetchone()
 
+        # Verifica se o usuário existe
+        if usuario is None:
+            flash("E-mail ou senha incorretos.", "erro")
+            return redirect(url_for("login"))
 
+        # Verifica a senha criptografada
+        if not check_password_hash(usuario["senha"], senha):
+            flash("E-mail ou senha incorretos.", "erro")
+            return redirect(url_for("login"))
+
+        # Login realizado com sucesso
+        session.clear()
+
+        session["usuario_id"] = usuario["id_usuario"]
+        session["usuario_nome"] = usuario["nome"]
+
+        return redirect(url_for("land"))
 
     except Error as erro:
 
+        app.logger.exception("Erro ao realizar login: %s", erro)
 
+        flash(
+            "Não foi possível acessar sua conta. Tente novamente.",
+            "erro"
+        )
 
-        return f"Erro ao acessar o banco: {erro}"
+        return redirect(url_for("login"))
 
+    except Exception as erro:
 
+        app.logger.exception("Erro inesperado no login: %s", erro)
+
+        flash(
+            "Ocorreu um erro inesperado. Tente novamente.",
+            "erro"
+        )
+
+        return redirect(url_for("login"))
 
     finally:
-
-
-
         fechar_banco(conexao, cursor)
-
-
-
-    if usuario is None:
-
-        return "E-mail ou senha incorretos."
-
-
-
-    if not check_password_hash(usuario["senha"], senha):
-
-        return "E-mail ou senha incorretos."
-
-
-
-    session.clear()
-
-    session["usuario_id"] = usuario["id_usuario"]
-
-    session["usuario_nome"] = usuario["nome"]
-
-
-
-    return redirect(url_for("land"))
-
-
-
-
-
-# =========================================================
-
-# LOGOUT
-
-# =========================================================
-
-
-
-@app.route("/logout")
-
-def logout():
-
-
-
-    session.clear()
-
-
-
-    return redirect(url_for("land"))
-
 
 
 
