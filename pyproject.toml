@@ -1,0 +1,16 @@
+
+[project]
+name = "truckparts-sitecloud"
+version = "1.0.0"
+requires-python = ">=3.13"
+dependencies = [
+    "flask",
+    "mysql-connector-python",
+    "werkzeug"
+]
+
+[dependency-groups]
+dev = [
+    "workers-py",
+    "workers-runtime-sdk"
+]
