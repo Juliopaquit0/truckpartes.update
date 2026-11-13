@@ -9,7 +9,8 @@ from flask import (
     jsonify,
     flash
 )
-
+from workers import WorkerEntrypoint
+import asgi
 import pymysql
 import os
 import re
@@ -1889,6 +1890,10 @@ def detalhes_produto(product_id):
         "produto.html",
         produto=produto
     )
+
+class Default(WorkerEntrypoint):
+    async def fetch(self, request):
+        return await asgi.fetch(app, request, self.env)
 
 
 # =========================================================
