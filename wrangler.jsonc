@@ -2,7 +2,7 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "truckparts-sitecloud",
-  "main": "src/app.py",
+  "main": "app.py",
   "compatibility_date": "2026-11-13",
   "compatibility_flags": [
     "python_workers"
