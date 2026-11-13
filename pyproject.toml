@@ -2,11 +2,10 @@
 [project]
 name = "truckparts-sitecloud"
 version = "1.0.0"
-description = "Loja virtual Truck Parts"
-requires-python = ">=3.13"
+requires-python = ">=3.13,<3.14"
 dependencies = [
     "flask",
-    "mysql-connector-python",
+    "pymysql",
     "werkzeug"
 ]
 
