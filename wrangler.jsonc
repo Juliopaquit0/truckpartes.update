@@ -1,0 +1,16 @@
+
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "truckparts-sitecloud",
+  "main": "src/worker.py",
+  "compatibility_date": "2026-11-13",
+  "compatibility_flags": [
+    "python_workers"
+  ],
+  "hyperdrive": [
+    {
+      "binding": "HYPERDRIVE",
+      "id": "5be5a9a682074ee7b63c467cfe494a29"
+    }
+  ]
+}
