@@ -2,6 +2,7 @@
 [project]
 name = "truckparts-sitecloud"
 version = "1.0.0"
+description = "E-commerce Truck Parts - Loja de peças para caminhões"
 requires-python = ">=3.13,<3.14"
 dependencies = [
     "flask",
