@@ -1,20 +1,20 @@
-
 [project]
 name = "truckparts-sitecloud"
 version = "1.0.0"
 description = "E-commerce Truck Parts - Loja de peças para caminhões"
 requires-python = ">=3.13,<3.14"
 dependencies = [
-    "flask",
-    "pymysql",
-    "werkzeug",
+    "flask>=3.1.0",
+    "pymysql>=1.1.0",
+    "werkzeug>=3.1.0",
     "markupsafe==3.0.2"
 ]
 
 [dependency-groups]
 dev = [
     "workers-py",
-    "workers-runtime-sdk"
+    "workers-runtime-sdk",
+    "pyodide-py==0.29.5"
 ]
 
 [tool.uv]
