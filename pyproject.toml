@@ -1,18 +1,17 @@
-
 [project]
-name = "truckparts-sitecloud"
-version = "1.0.0"
-requires-python = ">=3.13"
+name = "truckpartes-sitecloud"
+version = "0.1.0"
+requires-python = ">=3.12"
 dependencies = [
     "flask",
     "pymysql",
-    "werkzeug"
+    "asgiref",
+    "workers-py",
 ]
 
 [dependency-groups]
 dev = [
-    "workers-py",
-    "workers-runtime-sdk"
+    "workers-runtime-sdk",
 ]
 
 [tool.uv]

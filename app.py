@@ -14,6 +14,9 @@ import asgi
 import pymysql
 import os
 import re
+from workers import WorkerEntrypoint
+from asgiref.wsgi import WsgiToAsgi
+import asgi
 
 from werkzeug.security import (
     generate_password_hash,
@@ -1891,10 +1894,11 @@ def detalhes_produto(product_id):
         produto=produto
     )
 
+asgi_app = WsgiToAsgi(app)
+
 class Default(WorkerEntrypoint):
     async def fetch(self, request):
-        return await asgi.fetch(app, request, self.env)
-
+        return await asgi.fetch(asgi_app, request, self.env)
 
 # =========================================================
 # EXECUTAR
