@@ -178,7 +178,6 @@ def conectar_banco():
         password=db_pass,
         database=db_name,
         port=db_port,
-        auth_plugin='mysql_native_password'
     )
 
 
